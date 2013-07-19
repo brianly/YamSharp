@@ -9,7 +9,7 @@ namespace YamSharpTester
     {
         static void Main(string[] args)
         {
-            const string token = "KkgK7MrQnqwXvrvTVe4eA";
+            const string token = "4AOtIV1aGW0i3ehlAilQ";
             const string baseUrl = "https://www.yammer.com/api/v1/";
 
             //var s = new SearchService(baseUrl, token);
@@ -27,19 +27,23 @@ namespace YamSharpTester
             //Console.WriteLine(r.Json);
 
 
+            // Messages with OG metadata
             var messages = new MessageService(baseUrl, token);
 
             var og = new List<KeyValuePair<string, string>>
                 {
-                    new KeyValuePair<string, string>("og_url", "http://www.brianlyttle.com/testoddsdsdsdfsdfsdf"),
-                    new KeyValuePair<string, string>("og_title", "The og obj title"),
+                    // required
+                    new KeyValuePair<string, string>("og_url", "http://www.brianlyttle.com/2013/04/debugging-problems-with-ie-zones/?demo"),
+                    //optional
+                    new KeyValuePair<string, string>("og_title", "Debugging problems with IE Security Zones"),
                     new KeyValuePair<string, string>("og_image", "http://www.brianlyttle.com/images/ie-zones-dialog.png"),
-                    new KeyValuePair<string, string>("og_description", "This is the description"),
+                    new KeyValuePair<string, string>("og_description", "An overview how to start debugging problems with zones."),
                 };
 
-            var r = messages.Post("Testing opengraph", og);
+            var r = messages.Post("Messages can have open graph metadata attached as long as you specify it correctly.", og, 1791121);
             Console.WriteLine(r.Json);
 
+            Console.ReadKey();
         }
 
         private static void DumpMessages(SearchResponse r)

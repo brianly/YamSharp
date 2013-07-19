@@ -96,5 +96,22 @@ namespace YamSharp.Services
 
             return result;
         }
+
+        //group_id
+        public MessageResponse Post(string message, List<KeyValuePair<string, string>> openGraphProperties, int groupId)
+        {
+            var postData = new List<KeyValuePair<string, string>>
+                {
+                    new KeyValuePair<string, string>("body", message)
+                };
+
+            postData.AddRange(openGraphProperties);
+
+            var jsonObj = _client.Post<JObject>(string.Format("messages.json?group_id={0}", groupId), postData);
+            var result = new MessageResponse(jsonObj);
+
+            return result;
+        }
+
     }
 }

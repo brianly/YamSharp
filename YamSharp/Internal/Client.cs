@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Net;
 using System.Net.Http;
 using Newtonsoft.Json;
 
@@ -12,7 +10,6 @@ namespace YamSharp
         private string baseUrl;
         private string accessToken;
 
-
         public Client(string apiBaseUrl, string token)
         {
             accessToken = token;
@@ -21,8 +18,6 @@ namespace YamSharp
 
         public T Get<T>(string path, string args = "")
         {
-            T inst = default(T);
-
             using (var httpClient = new HttpClient())
             {
                 var url = new Uri(baseUrl + path);
@@ -35,9 +30,7 @@ namespace YamSharp
 
         public T Post<T>(string path, IEnumerable<KeyValuePair<string, string>> parameters)
         {
-
             HttpContent content = new FormUrlEncodedContent(parameters); 
-
 
             using (var httpClient = new HttpClient())
             {
@@ -57,8 +50,6 @@ namespace YamSharp
                 Method = method
             };
 
-   
-
             message.Headers.Add("Authorization", string.Format("Bearer {0}", token));
 
             return message;
@@ -77,8 +68,5 @@ namespace YamSharp
 
             return message;
         }
-
-
-
     }
 }
